@@ -1,0 +1,183 @@
+{% extends 'base.html' %}
+{% block title %}CampusConnect - Smart Campus Placement Management{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<div class="container-fluid" style="background: linear-gradient(135deg, rgba(102,126,234,0.1) 0%, rgba(118,75,162,0.1) 100%); padding: 4rem 0;">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h1 style="font-weight: 800; color: #1f2937; font-size: 3.5rem; line-height: 1.2; margin-bottom: 1.5rem;">
+                    Welcome to <span style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">CampusConnect</span>
+                </h1>
+                <p style="font-size: 1.25rem; color: #4b5563; margin-bottom: 2rem; line-height: 1.6;">
+                    Transform your campus placement process with our comprehensive management platform. Connect students, companies, and opportunities seamlessly.
+                </p>
+                <div class="d-flex gap-3 flex-wrap">
+                    <a href="{% url 'placement:dashboard' %}" class="btn btn-primary btn-lg">
+                        <i class="fas fa-chart-line me-2"></i>View Dashboard
+                    </a>
+                    <a href="{% url 'placement:job_postings_list' %}" class="btn btn-outline-primary btn-lg">
+                        <i class="fas fa-briefcase me-2"></i>Browse Jobs
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-6 text-center">
+                <div style="background: white; border-radius: 20px; padding: 3rem; box-shadow: 0 20px 60px rgba(0,0,0,0.08); margin-top: 2rem;">
+                    <i class="fas fa-graduation-cap fa-5x" style="color: #667eea; margin-bottom: 1.5rem;"></i>
+                    <h3 style="color: #1f2937; font-weight: 700; margin-bottom: 1rem;">Smart Placement Hub</h3>
+                    <p style="color: #6b7280;">Connecting talent with opportunity through intelligent matching and streamlined processes.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Statistics Section -->
+<div class="container my-5">
+    <div class="row g-4 text-center">
+        <div class="col-md-3">
+            <div style="background: white; border-radius: 16px; padding: 2.5rem 1.5rem; box-shadow: 0 8px 30px rgba(0,0,0,0.06); border: 1px solid rgba(102,126,234,0.1); transition: all 0.3s ease;" 
+                 onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 20px 60px rgba(102,126,234,0.15)'" 
+                 onmouseout="this.style.transform='translateY(0px)'; this.style.boxShadow='0 8px 30px rgba(0,0,0,0.06)'">
+                <div style="width: 70px; height: 70px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem;">
+                    <i class="fas fa-users fa-2x text-white"></i>
+                </div>
+                <h3 style="font-weight: 800; color: #667eea; font-size: 2.5rem; margin-bottom: 0.5rem;">{{ total_students }}+</h3>
+                <p style="color: #374151; font-weight: 600; margin-bottom: 0.5rem;">Active Students</p>
+                <small style="color: #6b7280;">Registered and ready</small>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div style="background: white; border-radius: 16px; padding: 2.5rem 1.5rem; box-shadow: 0 8px 30px rgba(0,0,0,0.06); border: 1px solid rgba(16,185,129,0.1); transition: all 0.3s ease;" 
+                 onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 20px 60px rgba(16,185,129,0.15)'" 
+                 onmouseout="this.style.transform='translateY(0px)'; this.style.boxShadow='0 8px 30px rgba(0,0,0,0.06)'">
+                <div style="width: 70px; height: 70px; background: linear-gradient(135deg, #10b981 0%, #059669 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem;">
+                    <i class="fas fa-building fa-2x text-white"></i>
+                </div>
+                <h3 style="font-weight: 800; color: #10b981; font-size: 2.5rem; margin-bottom: 0.5rem;">{{ total_companies }}+</h3>
+                <p style="color: #374151; font-weight: 600; margin-bottom: 0.5rem;">Partner Companies</p>
+                <small style="color: #6b7280;">Trusted recruiters</small>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div style="background: white; border-radius: 16px; padding: 2.5rem 1.5rem; box-shadow: 0 8px 30px rgba(0,0,0,0.06); border: 1px solid rgba(245,158,11,0.1); transition: all 0.3s ease;" 
+                 onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 20px 60px rgba(245,158,11,0.15)'" 
+                 onmouseout="this.style.transform='translateY(0px)'; this.style.boxShadow='0 8px 30px rgba(0,0,0,0.06)'">
+                <div style="width: 70px; height: 70px; background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem;">
+                    <i class="fas fa-briefcase fa-2x text-white"></i>
+                </div>
+                <h3 style="font-weight: 800; color: #f59e0b; font-size: 2.5rem; margin-bottom: 0.5rem;">{{ active_jobs }}+</h3>
+                <p style="color: #374151; font-weight: 600; margin-bottom: 0.5rem;">Active Jobs</p>
+                <small style="color: #6b7280;">Open positions</small>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div style="background: white; border-radius: 16px; padding: 2.5rem 1.5rem; box-shadow: 0 8px 30px rgba(0,0,0,0.06); border: 1px solid rgba(14,165,233,0.1); transition: all 0.3s ease;" 
+                 onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 20px 60px rgba(14,165,233,0.15)'" 
+                 onmouseout="this.style.transform='translateY(0px)'; this.style.boxShadow='0 8px 30px rgba(0,0,0,0.06)'">
+                <div style="width: 70px; height: 70px; background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem;">
+                    <i class="fas fa-laptop fa-2x text-white"></i>
+                </div>
+                <h3 style="font-weight: 800; color: #0ea5e9; font-size: 2.5rem; margin-bottom: 0.5rem;">{{ active_internships }}+</h3>
+                <p style="color: #374151; font-weight: 600; margin-bottom: 0.5rem;">Internships</p>
+                <small style="color: #6b7280;">Growth opportunities</small>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Why Choose CampusConnect Section -->
+<div class="container my-5">
+    <div class="row justify-content-center mb-5">
+        <div class="col-lg-8 text-center">
+            <h2 style="font-weight: 800; color: #1f2937; font-size: 2.75rem; margin-bottom: 1.5rem;">
+                Why Choose CampusConnect?
+            </h2>
+            <p style="font-size: 1.2rem; color: #6b7280; line-height: 1.6;">
+                Streamline your campus recruitment with our comprehensive platform designed for modern placement needs.
+            </p>
+        </div>
+    </div>
+    
+    <div class="row g-4">
+        <div class="col-lg-4">
+            <div style="background: white; border-radius: 20px; padding: 2.5rem; box-shadow: 0 10px 40px rgba(0,0,0,0.06); height: 100%; border: 1px solid rgba(102,126,234,0.08);">
+                <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 20px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem;">
+                    <i class="fas fa-users fa-2x text-white"></i>
+                </div>
+                <h4 style="color: #1f2937; font-weight: 700; margin-bottom: 1rem;">Student Management</h4>
+                <p style="color: #6b7280; line-height: 1.6; margin-bottom: 0;">
+                    Comprehensive student profiles, skill tracking, and performance analytics to help students showcase their best.
+                </p>
+            </div>
+        </div>
+        
+        <div class="col-lg-4">
+            <div style="background: white; border-radius: 20px; padding: 2.5rem; box-shadow: 0 10px 40px rgba(0,0,0,0.06); height: 100%; border: 1px solid rgba(16,185,129,0.08);">
+                <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #10b981 0%, #059669 100%); border-radius: 20px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem;">
+                    <i class="fas fa-handshake fa-2x text-white"></i>
+                </div>
+                <h4 style="color: #1f2937; font-weight: 700; margin-bottom: 1rem;">Company Relations</h4>
+                <p style="color: #6b7280; line-height: 1.6; margin-bottom: 0;">
+                    Build lasting partnerships with recruiters through streamlined communication and efficient hiring processes.
+                </p>
+            </div>
+        </div>
+        
+        <div class="col-lg-4">
+            <div style="background: white; border-radius: 20px; padding: 2.5rem; box-shadow: 0 10px 40px rgba(0,0,0,0.06); height: 100%; border: 1px solid rgba(14,165,233,0.08);">
+                <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%); border-radius: 20px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem;">
+                    <i class="fas fa-chart-line fa-2x text-white"></i>
+                </div>
+                <h4 style="color: #1f2937; font-weight: 700; margin-bottom: 1rem;">Analytics & Reports</h4>
+                <p style="color: #6b7280; line-height: 1.6; margin-bottom: 0;">
+                    Detailed insights and reports to track placement success rates and optimize recruitment strategies.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Call to Action Section -->
+<div class="container my-5">
+    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 24px; padding: 4rem 3rem; text-align: center;">
+        <h3 style="color: white; font-weight: 800; font-size: 2.5rem; margin-bottom: 1.5rem;">
+            Ready to Transform Your Placement Process?
+        </h3>
+        <p style="color: rgba(255,255,255,0.9); font-size: 1.2rem; margin-bottom: 2.5rem; max-width: 600px; margin-left: auto; margin-right: auto;">
+            Join thousands of institutions already using CampusConnect to streamline their placement activities and achieve better outcomes.
+        </p>
+        <div class="d-flex gap-3 justify-content-center flex-wrap">
+            <a href="{% url 'placement:student_login' %}" class="btn btn-light btn-lg">
+                <i class="fas fa-sign-in-alt me-2"></i>Student Login
+            </a>
+            <a href="{% url 'placement:companies_list' %}" class="btn btn-outline-light btn-lg">
+                <i class="fas fa-building me-2"></i>View Companies
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Quick Stats -->
+<div class="container my-5">
+    <div class="row text-center">
+        <div class="col-md-3">
+            <h4 style="color: #667eea; font-weight: 800;">95%</h4>
+            <p style="color: #6b7280; font-weight: 600;">Success Rate</p>
+        </div>
+        <div class="col-md-3">
+            <h4 style="color: #10b981; font-weight: 800;">24/7</h4>
+            <p style="color: #6b7280; font-weight: 600;">Platform Access</p>
+        </div>
+        <div class="col-md-3">
+            <h4 style="color: #f59e0b; font-weight: 800;">100+</h4>
+            <p style="color: #6b7280; font-weight: 600;">Partner Companies</p>
+        </div>
+        <div class="col-md-3">
+            <h4 style="color: #ef4444; font-weight: 800;">1000+</h4>
+            <p style="color: #6b7280; font-weight: 600;">Successful Placements</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

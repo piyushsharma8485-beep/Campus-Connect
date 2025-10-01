@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+{% block title %}Companies - CampusConnect{% endblock %}
+
+{% block content %}
+<div class="container-fluid mt-4">
+    <!-- Header Section -->
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <h1 style="font-weight: 800; color: #1f2937; margin-bottom: 0.5rem;">Partner Companies</h1>
+            <p class="text-muted">Our recruitment partner companies and their details</p>
+        </div>
+        <div class="col-md-4 text-end">
+            <a href="/admin/placement/company/add/" class="btn btn-success">
+                <i class="fas fa-plus me-2"></i>Add Company
+            </a>
+        </div>
+    </div>
+
+    <!-- Companies Grid -->
+    <div class="row g-4">
+        {% for company in companies %}
+        <div class="col-md-6 col-lg-4">
+            <div class="card">
+                <div class="card-header company-header-bg">
+                    <div class="d-flex align-items-center">
+                        <div style="width: 50px; height: 50px; border-radius: 50%; background: rgba(255,255,255,0.3); display: flex; align-items: center; justify-content: center; font-weight: bold; color: white; font-size: 1.4rem; margin-right: 12px; border: 2px solid rgba(255,255,255,0.4);">
+                            {{ company.name|first|upper }}
+                        </div>
+                        <div>
+                            <h5 class="company-name-visible">{{ company.name }}</h5>
+                            <small style="color: rgba(255,255,255,0.8);">{{ company.industry }}</small>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card-body">
+                    <div class="mb-3">
+                        <div class="d-flex align-items-center mb-2">
+                            <i class="fas fa-map-marker-alt text-primary me-2" style="width: 16px;"></i>
+                            <span>{{ company.location }}</span>
+                        </div>
+                        <div class="d-flex align-items-center mb-2">
+                            <i class="fas fa-envelope text-success me-2" style="width: 16px;"></i>
+                            <span class="small">{{ company.email }}</span>
+                        </div>
+                        {% if company.website %}
+                        <div class="d-flex align-items-center mb-2">
+                            <i class="fas fa-globe text-info me-2" style="width: 16px;"></i>
+                            <a href="{{ company.website }}" target="_blank" class="text-info text-decoration-none">
+                                Visit Website <i class="fas fa-external-link-alt ms-1 small"></i>
+                            </a>
+                        </div>
+                        {% endif %}
+                        {% if company.phone %}
+                        <div class="d-flex align-items-center mb-2">
+                            <i class="fas fa-phone text-warning me-2" style="width: 16px;"></i>
+                            <span>{{ company.phone }}</span>
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    {% if company.description %}
+                    <div class="mb-3" style="background: #f8fafc; padding: 0.75rem; border-radius: 8px; border-left: 4px solid #667eea;">
+                        <p class="text-muted small mb-0">{{ company.description|truncatewords:20 }}</p>
+                    </div>
+                    {% endif %}
+
+                    <!-- Company Stats -->
+                    <div style="background: #f8fafc; border-radius: 12px; padding: 1rem;">
+                        <div class="row text-center">
+                            <div class="col-4">
+                                <div style="background: white; border-radius: 8px; padding: 0.75rem 0.5rem;">
+                                    <h6 style="font-weight: 700; font-size: 1.1rem; color: #667eea; margin-bottom: 0.25rem;">{{ company.job_postings.count }}</h6>
+                                    <small class="text-muted">Jobs</small>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div style="background: white; border-radius: 8px; padding: 0.75rem 0.5rem;">
+                                    <h6 style="font-weight: 700; font-size: 1.1rem; color: #10b981; margin-bottom: 0.25rem;">{{ company.internships.count }}</h6>
+                                    <small class="text-muted">Internships</small>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div style="background: white; border-radius: 8px; padding: 0.75rem 0.5rem;">
+                                    <h6 style="font-weight: 700; font-size: 1.1rem; color: #f59e0b; margin-bottom: 0.25rem;">{{ company.placement_set.count }}</h6>
+                                    <small class="text-muted">Placements</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card-footer bg-light border-0">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <small class="text-muted">
+                            <i class="fas fa-calendar me-1"></i>
+                            Joined {{ company.created_at|date:"M Y" }}
+                        </small>
+                        <div class="btn-group">
+                            <a href="/admin/placement/company/{{ company.id }}/change/" 
+                               class="btn btn-sm btn-outline-primary">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <button class="btn btn-sm btn-outline-info">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <div class="text-center py-5">
+                <i class="fas fa-building fa-4x text-muted mb-4" style="opacity: 0.4;"></i>
+                <h3 class="text-muted">No Companies Yet</h3>
+                <p class="text-muted mb-4">Start building your recruitment network by adding companies.</p>
+                <a href="/admin/placement/company/add/" class="btn btn-success btn-lg">
+                    <i class="fas fa-plus me-2"></i>Add First Company
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

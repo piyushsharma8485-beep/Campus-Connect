@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% block title %}Jobs - CampusConnect{% endblock %}
+
+{% block content %}
+<div class="container-fluid mt-4">
+    <!-- Header Section -->
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <h1 style="font-weight: 800; color: #1f2937; margin-bottom: 0.5rem;">Available Jobs</h1>
+            <p class="text-muted">Explore exciting career opportunities</p>
+        </div>
+        <div class="col-md-4 text-end">
+            {% if user.is_authenticated and user.is_staff %}
+                <a href="/admin/placement/jobposting/add/" class="btn btn-success">
+                    <i class="fas fa-plus me-2"></i>Add Job
+                </a>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Jobs Grid -->
+    <div class="row g-4">
+        {% for job in jobs %}
+        <div class="col-md-6 col-lg-4">
+            <div class="card">
+                <div class="card-header company-header-bg">
+                    <div class="d-flex align-items-center">
+                        <div style="width: 50px; height: 50px; border-radius: 50%; background: rgba(255,255,255,0.3); display: flex; align-items: center; justify-content: center; font-weight: bold; color: white; font-size: 1.4rem; margin-right: 12px; border: 2px solid rgba(255,255,255,0.4);">
+                            {{ job.company.name|first|upper }}
+                        </div>
+                        <div>
+                            <h5 style="color: white; font-weight: 700; margin-bottom: 0.25rem;">{{ job.title }}</h5>
+                            <small style="color: rgba(255,255,255,0.8);">{{ job.company.name }}</small>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card-body">
+                    <div class="mb-3">
+                        <div class="d-flex align-items-center mb-2">
+                            <i class="fas fa-map-marker-alt text-primary me-2" style="width: 16px;"></i>
+                            <span>{{ job.location }}</span>
+                        </div>
+                        <div class="d-flex align-items-center mb-2">
+                            <i class="fas fa-rupee-sign text-success me-2" style="width: 16px;"></i>
+                            <span><strong>₹{{ job.package_min }} - ₹{{ job.package_max }} LPA</strong></span>
+                        </div>
+                        <div class="d-flex align-items-center mb-2">
+                            <i class="fas fa-users text-info me-2" style="width: 16px;"></i>
+                            <span>{{ job.positions_available }} positions</span>
+                        </div>
+                        <div class="d-flex align-items-center mb-2">
+                            <i class="fas fa-calendar text-warning me-2" style="width: 16px;"></i>
+                            <span>Apply by {{ job.application_deadline|date:"M d, Y" }}</span>
+                        </div>
+                    </div>
+
+                    <div class="mb-3" style="background: #f8fafc; padding: 0.75rem; border-radius: 8px; border-left: 4px solid #667eea;">
+                        <p class="text-muted small mb-0">{{ job.description|truncatewords:15 }}</p>
+                    </div>
+
+                    <div style="background: #f8fafc; border-radius: 12px; padding: 1rem;">
+                        <h6 class="mb-2">Requirements:</h6>
+                        <p class="small text-muted mb-0">{{ job.requirements|truncatewords:12 }}</p>
+                    </div>
+                </div>
+                
+                <div class="card-footer bg-light border-0">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <small class="text-muted">
+                            <i class="fas fa-clock me-1"></i>
+                            Posted {{ job.posted_on|date:"M d" }}
+                        </small>
+                        {% if user.is_authenticated %}
+                            <a href="{% url 'placement:apply_for_job' job.id %}" class="btn btn-success btn-sm">
+                                <i class="fas fa-paper-plane me-1"></i>Apply Now
+                            </a>
+                        {% else %}
+                            <a href="{% url 'placement:student_login' %}" class="btn btn-outline-primary btn-sm">
+                                <i class="fas fa-sign-in-alt me-1"></i>Login to Apply
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <div class="text-center py-5">
+                <i class="fas fa-briefcase fa-4x text-muted mb-4" style="opacity: 0.4;"></i>
+                <h3 class="text-muted">No Jobs Available</h3>
+                <p class="text-muted mb-4">Check back later for new opportunities.</p>
+                {% if user.is_authenticated and user.is_staff %}
+                    <a href="/admin/placement/jobposting/add/" class="btn btn-success btn-lg">
+                        <i class="fas fa-plus me-2"></i>Post First Job
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
