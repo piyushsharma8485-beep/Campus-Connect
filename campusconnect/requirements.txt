@@ -1,0 +1,6 @@
+Django>=3.0,<5.0
+djangorestframework
+gunicorn
+psycopg2-binary
+dj-database-url
+whitenoise
